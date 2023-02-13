@@ -34,6 +34,7 @@ class SnakesAndLadders:
         self.winner = None # can use to determine if game is over
     
     def die_roll(self):
+        Continue = input("Press Enter to role dice")
         return randint(1,6)
     
     def move_player(self, player_i):
@@ -75,5 +76,5 @@ class SnakesAndLadders:
         player_pos_str = ' | '.join([f"({player_i + 1}) {pos}" for pos, player_i in pos_and_player_i])
         print(player_pos_str)
 
-game = SnakesAndLadders(n_players = 10, verbose=True)
+game = SnakesAndLadders(n_players = 2, verbose=True)
 print(game.play_game())
