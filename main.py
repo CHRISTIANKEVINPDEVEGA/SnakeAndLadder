@@ -38,6 +38,8 @@ class SnakesAndLadders:
         return randint(1,6)
     
     def move_player(self, player_i):
+        print(f"____________________________")
+        print(f"Player {player_i + 1} turn! ")
         prev_pos = self.players[player_i]
         new_pos = prev_pos + self.die_roll()
         
