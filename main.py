@@ -75,5 +75,5 @@ class SnakesAndLadders:
         player_pos_str = ' | '.join([f"({player_i + 1}) {pos}" for pos, player_i in pos_and_player_i])
         print(player_pos_str)
 
-game = SnakesAndLadders(n_players = 100_000)
+game = SnakesAndLadders(n_players = 10, verbose=True)
 print(game.play_game())
