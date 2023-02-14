@@ -40,6 +40,17 @@ class RockPaperScissor:
             card_ = self.card_fifo_queue.dequeue()
             self.user_card_queue.append(card_)      
 
+    def user_shuffle(self):
+        print(self.user_card_queue)
+        while self.usershuffling == True:
+            user_choice = input("press 's' to shuffle and 'f' to continue the fight: ")
+            if user_choice.upper() == "S":
+                random.shuffle(self.user_card_queue)
+                print(self.user_card_queue)
+                continue
+            elif user_choice.upper() == "F":
+                self.usershuffling == False
+
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
         27: 8,
