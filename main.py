@@ -80,9 +80,14 @@ class RockPaperScissor:
                     print("Scissor cuts Paper! you win!")
                     self.score += 1
                 else: 
-                    print("Rock smashes Scissors! you lose")
+                    print("Rock smashes Scissors! you lose")     
                     self.score -= 1  
-
+                    
+    def get_score(self):
+        return self.score
+    
+    def warning_message(self):
+        print("not enough cards to fight")
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
         27: 8,
