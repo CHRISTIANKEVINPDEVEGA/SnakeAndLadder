@@ -18,6 +18,20 @@ class Queue: #this will handle the queueing of the rock and paper scissor cards 
     def dequeue(self):
         return self._elements.popleft()    
 
+class RockPaperScissor:
+    def __init__(self, counter):
+        self.card = ["rock","paper","scissor"]
+        self.counter = 0 + counter
+        self.usershuffling = True
+        self.user_card_queue = []
+        self.computer_card_list = []
+        self.score = 0
+        self.card_fifo_queue = Queue()
+
+    
+
+        
+
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
         27: 8,
