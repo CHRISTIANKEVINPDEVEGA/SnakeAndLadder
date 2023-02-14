@@ -1,12 +1,18 @@
 from random import randint
 from collections import deque
 
-class Queue:
+class Queue: #this will handle the queueing of the rock and paper scissor cards that the players will use to access the ladder#
     def __init__(self, *elements):
         self._elements = deque(elements)
 
+    def __len__(self):
+        return len(self._elements)
 
-class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game
+    def __iter__(self):
+        while len(self)>0:
+            yield self.dequeue()
+
+class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
         27: 8,
         34: 7,
