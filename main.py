@@ -11,6 +11,12 @@ class Queue: #this will handle the queueing of the rock and paper scissor cards 
     def __iter__(self):
         while len(self)>0:
             yield self.dequeue()
+    
+    def enqueue(self, element):
+        self._elements.append(element)
+
+    def dequeue(self):
+        return self._elements.popleft()    
 
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
