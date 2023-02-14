@@ -1,7 +1,9 @@
 from random import randint
 from collections import deque
 
-
+class Queue:
+    def __init__(self, *elements):
+        self._elements = deque(elements)
 
 
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game
