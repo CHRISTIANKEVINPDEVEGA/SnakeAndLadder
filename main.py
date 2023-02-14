@@ -52,6 +52,7 @@ class SnakesAndLadders:
             new_pos = self.LADDERS[new_pos]
         
         self.players[player_i] = new_pos
+        print(f"Player {player_i + 1} landed on tile {new_pos} ")
         
     def move_players(self):
         for player_i in range(self.n_players):
