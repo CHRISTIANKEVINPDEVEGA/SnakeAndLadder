@@ -35,7 +35,10 @@ class RockPaperScissor:
             self.card_fifo_queue.enqueue(card)
             self.counter -= 1
 
-        
+    def user_3card_attack(self):
+        for item in range(3):
+            card_ = self.card_fifo_queue.dequeue()
+            self.user_card_queue.append(card_)      
 
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
