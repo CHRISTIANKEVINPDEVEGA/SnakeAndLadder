@@ -50,7 +50,14 @@ class RockPaperScissor:
                 continue
             elif user_choice.upper() == "F":
                 self.usershuffling == False
+   
+    def computer_3card_defend(self):
+        for item in range(3):
+            card_ = random.choice(self.card)
+            self.computer_card_list.append(card_)
+        print(self.computer_card_list)
 
+    
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
         27: 8,
