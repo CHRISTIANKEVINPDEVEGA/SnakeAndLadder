@@ -57,7 +57,32 @@ class RockPaperScissor:
             self.computer_card_list.append(card_)
         print(self.computer_card_list)
 
-    
+    def determine_winner(self):
+        for item_ in range(len(self.user_card_queue)):
+            if self.user_card_queue[item_] == self.computer_card_list[item_]:
+                print(f"both players selected {self.user_card_queue[item_]}. It's a ties!")
+            elif self.user_card_queue[item_] == self.card[0]:
+                if self.computer_card_list[item_] == self.card[2]:
+                    print("Rock smashes Scissors! you win!")
+                    self.score += 1
+                else:
+                    print("Paper covers Rock! you lose")
+                    self.score -= 1
+            elif self.user_card_queue[item_] == self.card[1]:
+                if self.computer_card_list[list] == self.card[0]:
+                    print("Paper covers Rock! you win!")
+                    self.score += 1
+                else: 
+                    print("Scissor cuts Paper! you lose")
+                    self.score -= 1
+            elif self.user_card_queue[list] == self.card[2]:
+                if self.computer_card_list[list] == self.card[1]:
+                    print("Scissor cuts Paper! you win!")
+                    self.score += 1
+                else: 
+                    print("Rock smashes Scissors! you lose")
+                    self.score -= 1  
+
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
         27: 8,
