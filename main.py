@@ -1,5 +1,10 @@
-from random import randint 
-class SnakesAndLadders:
+from random import randint
+from collections import deque
+
+
+
+
+class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game
     SNAKES = {
         27: 8,
         34: 7,
