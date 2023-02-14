@@ -1,5 +1,6 @@
 from random import randint
 from collections import deque
+import random
 
 class Queue: #this will handle the queueing of the rock and paper scissor cards that the players will use to access the ladder#
     def __init__(self, *elements):
@@ -28,7 +29,11 @@ class RockPaperScissor:
         self.score = 0
         self.card_fifo_queue = Queue()
 
-    
+    def user_card_q_algorithm(self):
+        while self.counter >= 1:
+            card = random.choice(self.card)
+            self.card_fifo_queue.enqueue(card)
+            self.counter -= 1
 
         
 
