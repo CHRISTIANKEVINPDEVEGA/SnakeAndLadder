@@ -165,7 +165,16 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
             self.winner = player_i
             new_pos = self.LAST_TILE
         elif new_pos in self.SNAKES:
-            new_pos = self.SNAKES[new_pos]
+            user_input = input("Press y/n to fight the attacking snake: ")  
+            if user_input.upper() == "Y":
+                if gameSL.start_fight() == True:
+                    self.counter[player_i] -= 3
+                if gameSL.get_score() > 0:
+                    new_pos = new_pos
+                else:
+                    new_pos = self.SNAKES[new_pos]
+            elif user_input.upper() == "N":
+                    new_pos = self.SNAKES[new_pos]
         elif new_pos in self.LADDERS:
             user_input = input("Press y/n to fight for the access on the ladder: ")
             if user_input.upper() == "Y":
@@ -174,9 +183,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
                 if gameSL.get_score() > 0:
                     new_pos = self.LADDERS[new_pos]
                 else:
-                    new_pos = new_pos
-                    
-                        
+                    new_pos = new_pos                        
             elif user_input.upper() == "N":
                     new_pos = new_pos       
         self.players[player_i] = new_pos
