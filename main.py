@@ -166,9 +166,9 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         old_counter = self.counter[player_i]
         new_counter = old_counter + 1
         self.counter[player_i] = new_counter
-        gameSL = RockPaperScissor()
-        gameSL.counter(self.counter[player_i])
-        gameSL.user_card_q_algorithm()
+        gameRPS = RockPaperScissor()
+        gameRPS.counter(self.counter[player_i])
+        gameRPS.user_card_q_algorithm()
 
         if new_pos >= self.LAST_TILE: # winner! game over
             self.winner = player_i
@@ -176,9 +176,9 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         elif new_pos in self.SNAKES:
             user_input = input("Press y/n to fight the attacking snake: ")  
             if user_input.upper() == "Y":
-                if gameSL.start_fight() == True:
+                if gameRPS.start_fight() == True:
                     self.counter[player_i] -= 3
-                if gameSL.get_score() > 0:
+                if gameRPS.get_score() > 0:
                     new_pos = new_pos
                 else:
                     new_pos = self.SNAKES[new_pos]
@@ -187,9 +187,9 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         elif new_pos in self.LADDERS:
             user_input = input("Press y/n to fight for the access on the ladder: ")
             if user_input.upper() == "Y":
-                if gameSL.start_fight() == True:
+                if gameRPS.start_fight() == True:
                     self.counter[player_i] -= 3
-                if gameSL.get_score() > 0:
+                if gameRPS.get_score() > 0:
                     new_pos = self.LADDERS[new_pos]
                 else:
                     new_pos = new_pos                        
@@ -224,5 +224,25 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         player_pos_str = ' | '.join([f"({player_i + 1}) {pos}" for pos, player_i in pos_and_player_i])
         print(player_pos_str)
 
-game = SnakesAndLadders(n_players = 2, verbose=True)
-print(game.play_game())
+class GAMEINTRO:
+    def intro(self):
+        intro_msg = """
+        Welcome to my Text Based Snake and ladder game with rock, paper and scissors twist
+        Modified by: Christian Kevin P. De Vega
+
+        Goal of the game:
+            Be the first player to reach the final tile or the 100th tile.
+
+        Rules and Mechanics:
+            1. Roll the dice to advance from your initial position. You can move from 1-6 tile in each turn depending from the dice roll.
+            2. Every turn each player will gain one rock/paper/scissor card that they can use on the snake or ladder tile.
+            3. If you land on a ladder tile you can choose to fight the ladder guardian for access on the ladder or you can ignore it.
+            4. If you land on a snake tile you can choose to defend yourself from the snake or let it slide you down.
+            5. Each fight will require a player to deduc 3 cards from his inventory.
+            6. In a match the player and the ladder guardian or snake will engage in a 3 rounds rock, paper, and scissor game.
+            7. Each turn a placement board will be shown to indicate the players position in the race.
+        """
+        print(intro_msg)
+
+
+
