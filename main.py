@@ -20,20 +20,23 @@ class Queue: #this will handle the queueing of the rock and paper scissor cards 
         return self._elements.popleft()    
 
 class RockPaperScissor:
-    def __init__(self, counter):
+    def __init__(self):
         self.card = ["rock","paper","scissor"]
-        self.counter = 0 + counter
         self.usershuffling = True
         self.user_card_queue = []
         self.computer_card_list = []
         self.score = 0
         self.card_fifo_queue = Queue()
 
+    def counter(self,counter):
+        self.counter = counter
+
     def user_card_q_algorithm(self):
         while self.counter >= 1:
             card = random.choice(self.card)
             self.card_fifo_queue.enqueue(card)
             self.counter -= 1
+        print(len(self.card_fifo_queue))
 
     def user_3card_attack(self):
         for item in range(3):
@@ -96,7 +99,6 @@ class RockPaperScissor:
         print("not enough cards to fight")
 
     def start_fight(self):
-        self.user_card_q_algorithm()
         if len(self.card_fifo_queue) >= 3 :
             self.user_3card_attack()
             self.user_shuffle()
@@ -137,6 +139,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         self.verbose = verbose
         self.players = [0] * n_players
         self.turn = 0
+        self.counter = 0
         self.winner = None # can use to determine if game is over
     
     def die_roll(self):
@@ -148,7 +151,10 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         print(f"Player {player_i + 1} turn! ")
         prev_pos = self.players[player_i]
         new_pos = prev_pos + self.die_roll()
-        
+        gameSL = RockPaperScissor()
+        gameSL.counter(self.counter)
+        gameSL.user_card_q_algorithm()
+
         if new_pos >= self.LAST_TILE: # winner! game over
             self.winner = player_i
             new_pos = self.LAST_TILE
@@ -157,12 +163,12 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         elif new_pos in self.LADDERS:
             user_input = input("Press y/n to fight for the access on the ladder: ")
             if user_input.upper() == "Y":
-                gameSL = RockPaperScissor(self.turn)
                 gameSL.start_fight()
                 if gameSL.get_score() > 0:
                     new_pos = self.LADDERS[new_pos]
                 else:
                     new_pos = new_pos
+                self.counter -= 3
             elif user_input.upper() == "N":
                     new_pos = new_pos       
         self.players[player_i] = new_pos
@@ -177,6 +183,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     def play_game(self):
         while self.winner is None:
             self.turn += 1
+            self.counter +=1
             self.move_players()
             if self.verbose:
                 self.print_turn()
