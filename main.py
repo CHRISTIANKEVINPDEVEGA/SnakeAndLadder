@@ -104,8 +104,10 @@ class RockPaperScissor:
             self.user_shuffle()
             self.computer_3card_defend()
             self.determine_winner()
+            return True
         else:
-            self.warning_message()   
+            self.warning_message()
+            return False   
 
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
@@ -139,7 +141,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         self.verbose = verbose
         self.players = [0] * n_players
         self.turn = 0
-        self.counter = 0
+        self.counter = [0] * n_players
         self.winner = None # can use to determine if game is over
     
     def die_roll(self):
@@ -151,8 +153,12 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         print(f"Player {player_i + 1} turn! ")
         prev_pos = self.players[player_i]
         new_pos = prev_pos + self.die_roll()
+
+        old_counter = self.counter[player_i]
+        new_counter = old_counter + 1
+        self.counter[player_i] = new_counter
         gameSL = RockPaperScissor()
-        gameSL.counter(self.counter)
+        gameSL.counter(self.counter[player_i])
         gameSL.user_card_q_algorithm()
 
         if new_pos >= self.LAST_TILE: # winner! game over
@@ -163,12 +169,14 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         elif new_pos in self.LADDERS:
             user_input = input("Press y/n to fight for the access on the ladder: ")
             if user_input.upper() == "Y":
-                gameSL.start_fight()
+                if gameSL.start_fight() == True:
+                    self.counter[player_i] -= 3
                 if gameSL.get_score() > 0:
                     new_pos = self.LADDERS[new_pos]
                 else:
                     new_pos = new_pos
-                self.counter -= 3
+                    
+                        
             elif user_input.upper() == "N":
                     new_pos = new_pos       
         self.players[player_i] = new_pos
@@ -183,7 +191,6 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     def play_game(self):
         while self.winner is None:
             self.turn += 1
-            self.counter +=1
             self.move_players()
             if self.verbose:
                 self.print_turn()
