@@ -224,7 +224,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         player_pos_str = ' | '.join([f"({player_i + 1}) {pos}" for pos, player_i in pos_and_player_i])
         print(player_pos_str)
 
-class GAMEINTRO:
+class GAMEmsg:
     def intro(self):
         intro_msg = """
         Welcome to my Text Based Snake and ladder game with rock, paper and scissors twist
@@ -244,5 +244,9 @@ class GAMEINTRO:
         """
         print(intro_msg)
 
-
+    def options(self):
+        option_="""
+        Options:
+        Press [0]play or [1]Exit """
+        choice_= input(f"{option_}")
 
