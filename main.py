@@ -69,19 +69,25 @@ class RockPaperScissor:
                     print("Paper covers Rock! you lose")
                     self.score -= 1
             elif self.user_card_queue[item_] == self.card[1]:
-                if self.computer_card_list[list] == self.card[0]:
+                if self.computer_card_list[item_] == self.card[0]:
                     print("Paper covers Rock! you win!")
                     self.score += 1
                 else: 
                     print("Scissor cuts Paper! you lose")
                     self.score -= 1
-            elif self.user_card_queue[list] == self.card[2]:
-                if self.computer_card_list[list] == self.card[1]:
+            elif self.user_card_queue[item_] == self.card[2]:
+                if self.computer_card_list[item_] == self.card[1]:
                     print("Scissor cuts Paper! you win!")
                     self.score += 1
                 else: 
                     print("Rock smashes Scissors! you lose")     
-                    self.score -= 1  
+                    self.score -= 1       
+        if self.score == 0:
+            print("its a tie overall")
+        elif self.score > 0:
+            print("its your victory overall")
+        elif self.score < 0:
+            print("its your defeat overall")
                     
     def get_score(self):
         return self.score
