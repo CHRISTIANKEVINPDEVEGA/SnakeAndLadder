@@ -222,9 +222,11 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         
         # print players with position
         player_pos_str = ' | '.join([f"({player_i + 1}) {pos}" for pos, player_i in pos_and_player_i])
+        print("-------------------------------------------------------------")
         print(player_pos_str)
 
 class GAMEmsg:
+ 
     def intro(self):
         intro_msg = """
         Welcome to my Text Based Snake and ladder game with rock, paper and scissors twist
@@ -248,18 +250,35 @@ class GAMEmsg:
         option_="""
         Options:
         Press [0]play or [1]Exit """
-        choice_= input(f"{option_}")
+        choice_= int(input(f"{option_}"))
+        if choice_ == 0:
+            return True
+        if choice_ == 1:
+            return False
+
 
     def player_amount(self):
         num_player = """
         How many players will participate?
         """
-        num_Player = input(f"{num_player}")
+        num_Player = int(input(f"{num_player}"))
         print(f"""
         Welcome to the {num_Player} players that will participate in this game! 
         """)
+        return num_Player
 
-    def INTRO(self):          
+    def INTRO(self):
         self.intro()
-        self.options()
-        self.player_amount()
+        if self.options() == True:
+            n_players = self.player_amount()
+            gameSNL = SnakesAndLadders(n_players, verbose=True)
+            print(gameSNL.play_game())
+            
+
+
+def gamestarter():
+        gamemsg = GAMEmsg()
+        gamemsg.INTRO()
+
+
+gamestarter()
