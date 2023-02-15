@@ -213,7 +213,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
             new_pos = self.LAST_TILE
         print(f"Player {player_i + 1} landed on tile {new_pos} ")
         if new_pos in self.SNAKES:
-            user_input = input("\nEnter 'y' to fight the attacking snake or 'n'/any key to disregard: ")  
+            user_input = input("Enter 'y' to fight the attacking snake or 'n'/any key to disregard: ")  
             if user_input.upper() == "Y":
                 if gameRPS.start_fight() == True:
                     self.counter[player_i] -= 3
@@ -230,7 +230,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
                     print(f"{self.bitten_by_snake[randint(0,5)]}")
                     print(f"Player {player_i + 1} landed on tile {new_pos} ")
         elif new_pos in self.LADDERS:
-            user_input = input("Enter 'y' to fight for the access on the ladder or 'n'/any key to disregard: ")
+            user_input = input("\nEnter 'y' to fight for the access on the ladder or 'n'/any key to disregard: ")
             if user_input.upper() == "Y":
                 if gameRPS.start_fight() == True:
                     self.counter[player_i] -= 3
@@ -255,12 +255,15 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
                 break
                 
     def play_game(self):
-        while self.winner is None:
-            self.turn += 1
-            self.move_players()
-            if self.verbose:
-                self.print_turn()
-        return f"Player #{self.winner + 1} Wins!"
+        condition = True
+        while condition is True:
+            while self.winner is None:
+                self.turn += 1
+                self.move_players()
+                if self.verbose:
+                    self.print_turn()
+            return f"Player #{self.winner + 1} Wins!"
+            
     
     def print_turn(self):
         print(f"\n\nThats the end of Turn {self.turn}:")
@@ -308,25 +311,31 @@ class GAMEmsg:
 
 
     def player_amount(self):
+        condition = True
         num_player = """
-        How many players will participate?
-        """
-        num_Player = int(input(f"{num_player}"))
-        print(f"""
-        Welcome to the {num_Player} players that will participate in this game! 
-        """)
-        return num_Player
+        How many players will participate? """
+        while condition == True:
+            num_Player = int(input(f"{num_player}"))
+            if num_Player != 0 and num_Player > 0:
+                condition = False
+                print(f"""
+                \n\nWelcome to the {num_Player} players that will participate in this game! """)
+                return num_Player
 
     def INTRO(self):
         self.intro()
-        if self.options() == True:
-            n_players = self.player_amount()
-            gameSNL = SnakesAndLadders(n_players, verbose=True)
-            print(gameSNL.play_game())
+        condition = True
+        while condition == True:
+            if self.options() == True:
+                n_players = self.player_amount()
+                gameSNL = SnakesAndLadders(n_players, verbose=True)
+                print(gameSNL.play_game())
+            else:
+                condition = False
             
 
 
-def gamestarter():
+def gamestarter():    
         gamemsg = GAMEmsg()
         gamemsg.INTRO()
 
