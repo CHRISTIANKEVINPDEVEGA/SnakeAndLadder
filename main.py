@@ -262,7 +262,8 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
                 self.move_players()
                 if self.verbose:
                     self.print_turn()
-            return f"Player #{self.winner + 1} Wins!"
+            return f"\n\nCongratulations Player #{self.winner + 1} you Win! And that concludes this epic Snake and Ladder match"
+
             
     
     def print_turn(self):
@@ -302,11 +303,11 @@ class GAMEmsg:
     def options(self):
         option_="""
         Options:
-        Press [0]play or [1]Exit """
+        Press [0]play or [1]Exit: """
         choice_= int(input(f"{option_}"))
         if choice_ == 0:
             return True
-        if choice_ == 1:
+        elif choice_ == 1:
             return False
 
 
@@ -319,7 +320,7 @@ class GAMEmsg:
             if num_Player != 0 and num_Player > 0:
                 condition = False
                 print(f"""
-                \n\nWelcome to the {num_Player} players that will participate in this game! """)
+                \n\n\n\n\n\n    Welcome to the {num_Player} players that will participate in this game! """)
                 return num_Player
 
     def INTRO(self):
@@ -330,6 +331,7 @@ class GAMEmsg:
                 n_players = self.player_amount()
                 gameSNL = SnakesAndLadders(n_players, verbose=True)
                 print(gameSNL.play_game())
+                print(f"\n\n\n    Enter 0 in the options to play another session of Snake and Ladder")
             else:
                 condition = False
             
