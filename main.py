@@ -49,7 +49,7 @@ class RockPaperScissor:
                 print(self.user_card_queue)
                 continue
             elif user_choice.upper() == "F":
-                self.usershuffling == False
+                self.usershuffling = False
    
     def computer_3card_defend(self):
         for item in range(3):
@@ -98,7 +98,7 @@ class RockPaperScissor:
             self.determine_winner()
         else:
             self.warning_message()   
-            
+
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
         27: 8,
@@ -149,8 +149,16 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         elif new_pos in self.SNAKES:
             new_pos = self.SNAKES[new_pos]
         elif new_pos in self.LADDERS:
-            new_pos = self.LADDERS[new_pos]
-        
+            user_input = input("Press y/n to fight for the access on the ladder: ")
+            if user_input.upper() == "Y":
+                gameSL = RockPaperScissor(self.turn)
+                gameSL.start_fight()
+                if gameSL.get_score() > 0:
+                    new_pos = self.LADDERS[new_pos]
+                else:
+                    new_pos = new_pos
+            elif user_input.upper() == "N":
+                    new_pos = new_pos       
         self.players[player_i] = new_pos
         print(f"Player {player_i + 1} landed on tile {new_pos} ")
         
