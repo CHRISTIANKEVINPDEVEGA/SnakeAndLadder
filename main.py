@@ -194,8 +194,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         return randint(1,6)
     
     def move_player(self, player_i):
-        print(f"____________________________")
-        print(f"Player {player_i + 1} turn! ")
+        print(f"\n\n\n\nPlayer {player_i + 1} turn! ")
         print(f"____________________________")
         prev_pos = self.players[player_i]
         die_roll_result = self.die_roll()
@@ -209,36 +208,45 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         gameRPS = RockPaperScissor()
         gameRPS.counter(self.counter[player_i])
         gameRPS.user_card_q_algorithm()
-
         if new_pos >= self.LAST_TILE: # winner! game over
             self.winner = player_i
             new_pos = self.LAST_TILE
-        elif new_pos in self.SNAKES:
-            user_input = input("Press y/n to fight the attacking snake: ")  
-            if user_input.upper() == "Y":
-                if gameRPS.start_fight() == True:
-                    self.counter[player_i] -= 3
-                if gameRPS.get_score() > 0:
-                    new_pos = new_pos
-                    print(f"{self.defended_against_snake[randint(0,5)]}")
-                else:
-                    new_pos = self.SNAKES[new_pos]
-            elif user_input.upper() == "N":
-                    new_pos = self.SNAKES[new_pos]
-        elif new_pos in self.LADDERS:
-            user_input = input("Press y/n to fight for the access on the ladder: ")
-            if user_input.upper() == "Y":
-                if gameRPS.start_fight() == True:
-                    self.counter[player_i] -= 3
-                if gameRPS.get_score() > 0:
-                    new_pos = self.LADDERS[new_pos]
-                    print(f"{self.victory_over_guardian[randint(0,5)]}")
-                else:
-                    new_pos = new_pos                        
-            elif user_input.upper() == "N":
-                    new_pos = new_pos       
-        self.players[player_i] = new_pos
         print(f"Player {player_i + 1} landed on tile {new_pos} ")
+        if new_pos in self.SNAKES:
+            user_input = input("Press yes to fight the attacking snake or press n/any key to disregard: ")  
+            if user_input.upper() == "Y":
+                if gameRPS.start_fight() == True:
+                    self.counter[player_i] -= 3
+                    if gameRPS.get_score() > 0:
+                        new_pos = new_pos
+                        print(f"{self.defended_against_snake[randint(0,5)]}")
+                        print(f"Player {player_i + 1} will stay on tile {new_pos} ")
+                    else:
+                        new_pos = self.SNAKES[new_pos]
+                        print(f"{self.bitten_by_snake[randint(0,5)]}")
+                        print(f"Player {player_i + 1} landed on tile {new_pos} ")
+            elif (user_input.upper()) == "N" or (user_input.upper() != "Y"):
+                    new_pos = self.SNAKES[new_pos]
+                    print(f"{self.bitten_by_snake[randint(0,5)]}")
+                    print(f"Player {player_i + 1} landed on tile {new_pos} ")
+        elif new_pos in self.LADDERS:
+            user_input = input("Press yes to fight for the access on the ladder or press n/any key to disregard: ")
+            if user_input.upper() == "Y":
+                if gameRPS.start_fight() == True:
+                    self.counter[player_i] -= 3
+                    if gameRPS.get_score() > 0:
+                        new_pos = self.LADDERS[new_pos]
+                        print(f"{self.victory_over_guardian[randint(0,5)]}")
+                        print(f"Player {player_i + 1} landed on tile {new_pos} ")
+                    else:
+                        new_pos = new_pos
+                        print(f"{self.defeated_by_guardian[randint(0,5)]}")
+                        print(f"Player {player_i + 1} will stay on tile {new_pos} ")                        
+            elif (user_input.upper() == "N") or (user_input.upper() != "Y"):
+                    new_pos = new_pos
+                    print(f"Player {player_i + 1} will stay on tile {new_pos} ")       
+        self.players[player_i] = new_pos
+
         
     def move_players(self):
         for player_i in range(self.n_players):
@@ -255,7 +263,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         return f"Player #{self.winner + 1} Wins!"
     
     def print_turn(self):
-        print(f"Thats the end of the Turn {self.turn}:")
+        print(f"\n\nThats the end of Turn {self.turn}:")
         print("-------------------------------------------------------------")        
         
         # sort players by position
