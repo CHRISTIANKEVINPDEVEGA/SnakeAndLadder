@@ -53,12 +53,13 @@ class RockPaperScissor:
             self.user_card_queue.append(card_)      
 
     def user_shuffle(self):
-        print(self.user_card_queue)
+        print(f"Your deck: {self.user_card_queue}")
         while self.usershuffling == True:
-            user_choice = input("press 's' to shuffle and 'f' to continue the fight: ")
+            user_choice = input("Enter 's' to shuffle or 'f' to proceed to the fight: ")
+            print("\n")
             if user_choice.upper() == "S":
                 random.shuffle(self.user_card_queue)
-                print(self.user_card_queue)
+                print(f"Your shuffled deck: {self.user_card_queue}")
                 continue
             elif user_choice.upper() == "F":
                 self.usershuffling = False
@@ -67,12 +68,11 @@ class RockPaperScissor:
         for item in range(3):
             card_ = random.choice(self.card)
             self.computer_card_list.append(card_)
-        print(self.computer_card_list)
 
     def determine_winner(self):
         for item_ in range(len(self.user_card_queue)):
             if self.user_card_queue[item_] == self.computer_card_list[item_]:
-                print(f"both players selected {self.user_card_queue[item_]}. It's a tie!")
+                print(f"Both players selected {self.user_card_queue[item_]}. It's a tie!")
             elif self.user_card_queue[item_] == self.card[0]:
                 if self.computer_card_list[item_] == self.card[2]:
                     print("Rock smashes Scissors! you win!")
@@ -95,17 +95,17 @@ class RockPaperScissor:
                     print("Rock smashes Scissors! you lose")     
                     self.score -= 1       
         if self.score == 0:
-            print("its a tie overall")
+            print("\nIts a tie overall")
         elif self.score > 0:
-            print("its your victory overall")
+            print("\nIts your victory overall!")
         elif self.score < 0:
-            print("its your defeat overall")
+            print("\nIts your defeat overall")
                     
     def get_score(self):
         return self.score
     
     def warning_message(self):
-        print("not enough cards to fight")
+        print("You lack the necessary numbers of card to fight")
 
     def start_fight(self):
         if len(self.card_fifo_queue) >= 3 :
@@ -190,7 +190,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         self.winner = None # can use to determine if game is over
     
     def die_roll(self):
-        Continue_ = input("Press Enter to role dice")
+        Continue_ = input("Press Enter to role dice: ")
         return randint(1,6)
     
     def move_player(self, player_i):
@@ -213,7 +213,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
             new_pos = self.LAST_TILE
         print(f"Player {player_i + 1} landed on tile {new_pos} ")
         if new_pos in self.SNAKES:
-            user_input = input("Press yes to fight the attacking snake or press n/any key to disregard: ")  
+            user_input = input("\nEnter 'y' to fight the attacking snake or 'n'/any key to disregard: ")  
             if user_input.upper() == "Y":
                 if gameRPS.start_fight() == True:
                     self.counter[player_i] -= 3
@@ -230,7 +230,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
                     print(f"{self.bitten_by_snake[randint(0,5)]}")
                     print(f"Player {player_i + 1} landed on tile {new_pos} ")
         elif new_pos in self.LADDERS:
-            user_input = input("Press yes to fight for the access on the ladder or press n/any key to disregard: ")
+            user_input = input("Enter 'y' to fight for the access on the ladder or 'n'/any key to disregard: ")
             if user_input.upper() == "Y":
                 if gameRPS.start_fight() == True:
                     self.counter[player_i] -= 3
