@@ -19,6 +19,15 @@ class Queue: #this will handle the queueing of the rock and paper scissor cards 
     def dequeue(self):
         return self._elements.popleft()    
 
+class Bubblesort():
+    def bubbleSort(self,numbers):
+        itemCount = len(numbers)
+        for index in range(itemCount-1):
+            for value in range(itemCount-1):
+                if numbers[value] < numbers[value+1]:
+                    temp = numbers[value], numbers[value+1]
+                    numbers[value+1], numbers[value] = temp
+
 class RockPaperScissor:
     def __init__(self):
         self.card = ["rock","paper","scissor"]
@@ -208,7 +217,8 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         
         # sort players by position
         pos_and_player_i = [(pos, player_i) for player_i, pos in enumerate(self.players)]
-        pos_and_player_i.sort(reverse=True)
+        sorter=Bubblesort()
+        sorter.bubbleSort(pos_and_player_i)        
         
         # print players with position
         player_pos_str = ' | '.join([f"({player_i + 1}) {pos}" for pos, player_i in pos_and_player_i])
