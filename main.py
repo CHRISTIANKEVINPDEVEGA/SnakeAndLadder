@@ -45,7 +45,7 @@ class RockPaperScissor:
             card = random.choice(self.card)
             self.card_fifo_queue.enqueue(card)
             self.counter -= 1
-        print(len(self.card_fifo_queue))
+        print(f"Number of cards in possession: {len(self.card_fifo_queue)}")
 
     def user_3card_attack(self):
         for item in range(3):
@@ -72,7 +72,7 @@ class RockPaperScissor:
     def determine_winner(self):
         for item_ in range(len(self.user_card_queue)):
             if self.user_card_queue[item_] == self.computer_card_list[item_]:
-                print(f"both players selected {self.user_card_queue[item_]}. It's a ties!")
+                print(f"both players selected {self.user_card_queue[item_]}. It's a tie!")
             elif self.user_card_queue[item_] == self.card[0]:
                 if self.computer_card_list[item_] == self.card[2]:
                     print("Rock smashes Scissors! you win!")
@@ -142,7 +142,43 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         78: 84,
         86: 95,
     }
-    
+    bitten_by_snake=[
+        "Aw you got bit by a snake",
+        "sheeeeeeeeeesh~ that looks painful",
+        "Better be careful next time",
+        "oh noooooo!",
+        "daaaaaamn, it must have hurt",
+        "OMG!"
+    ]
+
+    defeated_by_guardian=[
+        "Better luck next time",
+        "Defeat never comes to any man until he admits it. -Joseph Daniels",
+        "We learn little from victory, much from defeat. -Japanese proverb",
+        "He who fears being conquered is sure of defeat. -Napoleon Bonaparte",
+        "Believe you can and your're halfway there. -Theodore Roosevelt",
+        "Victory is sweetest when you've known defeat. -Malcolm Forbes",
+    ]
+
+    defended_against_snake=[
+        "Yesss!",
+        "woooow",
+        "let's gooooooooo!!!",
+        "That was a close call",
+        "That was scary, HAHAHA!",
+        "Nailed it, nice try snake",
+    ]
+
+    victory_over_guardian = [
+        "That was a good match",
+        "Nice one",
+        "LET'S GOOOOOOOOOOO! FOR THE TOP",
+        "WOP! WOP!",
+        "WEEEEEEEEE!",
+        "Incredible WIN!"
+    ]
+
+
     LAST_TILE = 100
     
     def __init__(self, n_players, verbose = False):
@@ -154,14 +190,18 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         self.winner = None # can use to determine if game is over
     
     def die_roll(self):
-        Continue = input("Press Enter to role dice")
+        Continue_ = input("Press Enter to role dice")
         return randint(1,6)
     
     def move_player(self, player_i):
         print(f"____________________________")
         print(f"Player {player_i + 1} turn! ")
+        print(f"____________________________")
         prev_pos = self.players[player_i]
-        new_pos = prev_pos + self.die_roll()
+        die_roll_result = self.die_roll()
+        print(f"You get a {die_roll_result}!")
+        new_pos = prev_pos + die_roll_result
+
 
         old_counter = self.counter[player_i]
         new_counter = old_counter + 1
@@ -180,6 +220,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
                     self.counter[player_i] -= 3
                 if gameRPS.get_score() > 0:
                     new_pos = new_pos
+                    print(f"{self.defended_against_snake[randint(0,5)]}")
                 else:
                     new_pos = self.SNAKES[new_pos]
             elif user_input.upper() == "N":
@@ -191,6 +232,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
                     self.counter[player_i] -= 3
                 if gameRPS.get_score() > 0:
                     new_pos = self.LADDERS[new_pos]
+                    print(f"{self.victory_over_guardian[randint(0,5)]}")
                 else:
                     new_pos = new_pos                        
             elif user_input.upper() == "N":
@@ -213,7 +255,8 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         return f"Player #{self.winner + 1} Wins!"
     
     def print_turn(self):
-        print(f"Turn {self.turn}:")
+        print(f"Thats the end of the Turn {self.turn}:")
+        print("-------------------------------------------------------------")        
         
         # sort players by position
         pos_and_player_i = [(pos, player_i) for player_i, pos in enumerate(self.players)]
@@ -221,9 +264,8 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         sorter.bubbleSort(pos_and_player_i)        
         
         # print players with position
-        player_pos_str = ' | '.join([f"({player_i + 1}) {pos}" for pos, player_i in pos_and_player_i])
-        print("-------------------------------------------------------------")
-        print(player_pos_str)
+        player_pos_str = ' | '.join([f"(P#{player_i + 1}) in tile {pos}" for pos, player_i in pos_and_player_i])
+        print(f"Turn {self.turn} placement rankings: {player_pos_str}")
 
 class GAMEmsg:
  
@@ -280,5 +322,5 @@ def gamestarter():
         gamemsg = GAMEmsg()
         gamemsg.INTRO()
 
-
-gamestarter()
+if __name__ == '__main__':
+    gamestarter()
