@@ -88,6 +88,17 @@ class RockPaperScissor:
     
     def warning_message(self):
         print("not enough cards to fight")
+
+    def start_fight(self):
+        self.user_card_q_algorithm()
+        if len(self.card_fifo_queue) >= 3 :
+            self.user_3card_attack()
+            self.user_shuffle()
+            self.computer_3card_defend()
+            self.determine_winner()
+        else:
+            self.warning_message()   
+            
 class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     SNAKES = {
         27: 8,
