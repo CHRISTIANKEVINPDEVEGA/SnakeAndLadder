@@ -249,7 +249,7 @@ class GAMEmsg:
         Options:
         Press [0]play or [1]Exit """
         choice_= input(f"{option_}")
-        
+
     def player_amount(self):
         num_player = """
         How many players will participate?
@@ -258,3 +258,8 @@ class GAMEmsg:
         print(f"""
         Welcome to the {num_Player} players that will participate in this game! 
         """)
+
+    def INTRO(self):          
+        self.intro()
+        self.options()
+        self.player_amount()
