@@ -3,12 +3,12 @@ from collections import deque
 import random
 import sys, time, os
 
-def type_wr(letter):
+def type_wr(letter):#function for the delay in text 
 
     for text in letter:
         sys.stdout.write(text)
         sys.stdout.flush()
-        time.sleep(0.00000000001)
+        time.sleep(0.02)
 
 
 
@@ -36,7 +36,7 @@ class Queue: #this will handle the queueing of the rock and paper scissor cards 
 
 
 
-class Bubblesort():
+class Bubblesort():# function for sorting the placement in every turn
 
     def bubbleSort(self,numbers):
         itemCount = len(numbers)
@@ -46,7 +46,7 @@ class Bubblesort():
                     temp = numbers[value], numbers[value+1]
                     numbers[value+1], numbers[value] = temp
 
-card_fifo_queue = Queue()
+card_fifo_queue = Queue() #queue init
 
 class RockPaperScissor:
 
@@ -59,13 +59,13 @@ class RockPaperScissor:
         self.card_fifo_queue = card_fifo_queue
 
 
-    def counter(self,counter):
+    def counter(self,counter):# def for the counter of card/per turn base on the queue
         self.counter = counter
 
-    def COUNTER(self,COUNTER):
+    def COUNTER(self,COUNTER):# def for the counter of the card/per turn but based on the list
         self.COUNTER = COUNTER
 
-    def user_card_q_algorithm(self):
+    def user_card_q_algorithm(self):# def for the enqueuein of cards in the queue class
         while self.counter >= 1:
             card = random.choice(self.card)
             self.card_fifo_queue.enqueue(card)
@@ -74,14 +74,14 @@ class RockPaperScissor:
         
 
 
-    def user_3card_attack(self):
+    def user_3card_attack(self):# def for the dequeueing 3cards at a time from class into an empty list
         for item in range(3):
             card_ = self.card_fifo_queue.dequeue()
             self.user_card_queue.append(card_)      
 
 
     def user_shuffle(self):
-        type_wr(f"\nYour deck: {self.user_card_queue}")
+        type_wr(f"\nYour deck: {self.user_card_queue}")#def for shuffling the cards of 3
 
         while self.usershuffling == True:
             type_wr("\nEnter 's' to shuffle or 'f' to proceed to the fight: ")
@@ -95,13 +95,13 @@ class RockPaperScissor:
                 self.usershuffling = False
 
 
-    def computer_3card_defend(self):
+    def computer_3card_defend(self):#def for the cards the computer will use against the players
         for item in range(3):
             card_ = random.choice(self.card)
             self.computer_card_list.append(card_)
 
 
-    def victor_conditions(self):
+    def victor_conditions(self): #def for the conditions in winning the rock, paper and scissor(RPS) game
         for item_ in range(len(self.user_card_queue)):
             if self.user_card_queue[item_] == self.computer_card_list[item_]:
                 type_wr(f"\nBoth participants selected {self.user_card_queue[item_]}. \033[93;1;4mIt's a tie!\033[0m")
@@ -127,7 +127,7 @@ class RockPaperScissor:
                     type_wr("\n\033[31;1mOpponents\033[0m Rock smashes Your Scissors! \033[31;1;4mYou lose\033[0m.")     
                     self.score -= 1    
 
-        if self.score == 0:
+        if self.score == 0: #coring system for the overall match of 3 rounds of RPS game
             type_wr("\n\n\n\033[93;1;4mIts a tie overall\033[0m")
         elif self.score > 0:
             type_wr("\n\n\n\033[92;1;4mIts your victory overall!\033[0m")
@@ -135,15 +135,15 @@ class RockPaperScissor:
             type_wr("\n\n\n\033[31;1;4mIts your defeat overall\033[0m")
 
 
-    def get_score(self):
+    def get_score(self):# def for the score int value
         return self.score
     
 
-    def warning_message(self):
+    def warning_message(self): #def for the warning when a player initiate a fight without enough card
         type_wr("You lack the necessary numbers of card to fight.")
 
 
-    def start_fight(self):
+    def start_fight(self): #def for starting the whole class
         if self.COUNTER >= 3 :
             self.user_3card_attack()
             self.user_shuffle()
@@ -237,13 +237,13 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         self.winner = None # can use to determine if game is over
     
 
-    def die_roll(self):
+    def die_roller(self):
         type_wr("Press Enter to role dice: ")
         Continue_ = input()
         return randint(1,6)
     
 
-    def move_player(self, player_i):
+    def move_a_player(self, player_i): #def for the movement of one player
         type_wr(f"\n\n\n\n\033[96;1;4mPlayer {player_i + 1}\033[0m turn! ")
         print(f"\n____________________________")
         old_counter = self.counter[player_i]
@@ -254,14 +254,14 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         type_wr(f"Number of cards in possession: \033[93;1m{self.counter[player_i]}\033[0m\n")
 
         initial_pos = self.players[player_i]
-        die_roll_result = self.die_roll()
+        die_roll_result = self.die_roller()
 
         type_wr(f"\nRolling............................")
         type_wr(f"\nYou get a \033[93;1m{die_roll_result}\033[0m!")
 
         updated_pos = initial_pos + die_roll_result
 
-        gameRPS = RockPaperScissor()
+        gameRPS = RockPaperScissor()#condition for the RPS mechanic to start
         gameRPS.COUNTER(self.counter[player_i])
         gameRPS.counter(self.counterRSP[player_i])
         gameRPS.user_card_q_algorithm()
@@ -313,38 +313,38 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         self.players[player_i] = updated_pos
 
         
-    def move_players(self):
+    def move_all_players(self):#def for the movement of all players
         for player_i in range(self.num_players):
-            self.move_player(player_i)
+            self.move_a_player(player_i)
             if self.winner is not None: # done with game
                 break
 
 
-    def play_game(self):
+    def play_SNL_game(self):# def for the SNL game as the starter
         while self.winner is None:
             self.n_turn += 1
-            self.move_players()
+            self.move_all_players()
             if self.verbose:
                 self.print_turn()
         return f"\n\n\033[93;1m=====Congratulations Player #{self.winner + 1} you Win! And that concludes this epic Snake and Ladder match.=====\033[93;1m"
        
     
-    def print_turn(self):
+    def print_turn(self): # for the announcement every turn
         type_wr(f"\n\n\033[95;1mThats the end of Turn {self.n_turn}:\033[0m")
         print("\n-------------------------------------------------------------")   
 
         # sort players by position
-        pos_and_player_i = [(pos, player_i) for player_i, pos in enumerate(self.players)]
+        position_and_player_index = [(pos, player_i) for player_i, pos in enumerate(self.players)]
         sorter=Bubblesort()
-        sorter.bubbleSort(pos_and_player_i) 
+        sorter.bubbleSort(position_and_player_index) 
 
         # print players with position
-        player_pos_str = ' | '.join([f"(Player {player_i + 1}) in \033[97;1;4mtile {pos}\033[0m" for pos, player_i in pos_and_player_i])
-        type_wr(f"\033[95;1;4mTurn {self.n_turn} placement rankings:\033[0m {player_pos_str}")
+        player_position_string = ' | '.join([f"(Player {player_i + 1}) in \033[97;1;4mtile {pos}\033[0m" for pos, player_i in position_and_player_index])
+        type_wr(f"\033[95;1;4mTurn {self.n_turn} placement rankings:\033[0m {player_position_string}")
 
 
 
-class GAMEholder:
+class GAMEholder: #STARTS the whole game including the intro and options
  
     def intro(self):
         intro_msg = """
@@ -396,7 +396,7 @@ class GAMEholder:
                 return num_Player
 
 
-    def GAMEINTRO(self):
+    def IntroCompiler(self): # def for starting the SNL and its arguements 
         self.intro()
         condition = True
 
@@ -404,7 +404,7 @@ class GAMEholder:
             if self.options() == True:
                 num_players = self.player_amount()
                 gameSNL = SnakesAndLadders(num_players, verbose=True)
-                print(gameSNL.play_game())
+                print(gameSNL.play_SNL_game())
                 type_wr(f"\n\n\n\n\n---- Enter \033[93;1;4m'0'\033[0m in the options to play another session of Snake and Ladder.Thank You For Playing! ----\n\n\n")
             else:
                 condition = False
@@ -413,7 +413,7 @@ class GAMEholder:
 
 def gamestarter():    
         gameholder = GAMEholder()
-        gameholder.GAMEINTRO()
+        gameholder.IntroCompiler()
 
 if __name__ == '__main__':
     gamestarter()
