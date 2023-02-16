@@ -8,7 +8,7 @@ def type_wr(letter):
     for text in letter:
         sys.stdout.write(text)
         sys.stdout.flush()
-        time.sleep(0.02)
+        time.sleep(0.00000000001)
 
 
 
@@ -46,7 +46,7 @@ class Bubblesort():
                     temp = numbers[value], numbers[value+1]
                     numbers[value+1], numbers[value] = temp
 
-
+card_fifo_queue = Queue()
 
 class RockPaperScissor:
 
@@ -56,12 +56,14 @@ class RockPaperScissor:
         self.user_card_queue = []
         self.computer_card_list = []
         self.score = 0
-        self.card_fifo_queue = Queue()
+        self.card_fifo_queue = card_fifo_queue
 
 
     def counter(self,counter):
         self.counter = counter
 
+    def COUNTER(self,COUNTER):
+        self.COUNTER = COUNTER
 
     def user_card_q_algorithm(self):
         while self.counter >= 1:
@@ -69,7 +71,7 @@ class RockPaperScissor:
             self.card_fifo_queue.enqueue(card)
             self.counter -= 1
 
-        type_wr(f"\nNumber of cards in possession: \033[93;1m{len(self.card_fifo_queue)}\033[0m")
+        
 
 
     def user_3card_attack(self):
@@ -82,7 +84,8 @@ class RockPaperScissor:
         type_wr(f"\nYour deck: {self.user_card_queue}")
 
         while self.usershuffling == True:
-            user_choice = input("\nEnter 's' to shuffle or 'f' to proceed to the fight: ")
+            type_wr("\nEnter 's' to shuffle or 'f' to proceed to the fight: ")
+            user_choice = input()
             print("\n")
             if user_choice.upper() == "S":
                 random.shuffle(self.user_card_queue)
@@ -141,7 +144,7 @@ class RockPaperScissor:
 
 
     def start_fight(self):
-        if len(self.card_fifo_queue) >= 3 :
+        if self.COUNTER >= 3 :
             self.user_3card_attack()
             self.user_shuffle()
             self.computer_3card_defend()
@@ -230,6 +233,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         self.players = [0] * num_players
         self.n_turn = 0
         self.counter = [0] * num_players
+        self.counterRSP= [0] * num_players
         self.winner = None # can use to determine if game is over
     
 
@@ -242,19 +246,24 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     def move_player(self, player_i):
         type_wr(f"\n\n\n\n\033[96;1;4mPlayer {player_i + 1}\033[0m turn! ")
         print(f"\n____________________________")
+        old_counter = self.counter[player_i]
+        new_counter = old_counter + 1
+        self.counter[player_i] = new_counter
+        self.counterRSP[player_i] = new_counter - (new_counter-1)
+
+        type_wr(f"Number of cards in possession: \033[93;1m{self.counter[player_i]}\033[0m\n")
 
         initial_pos = self.players[player_i]
         die_roll_result = self.die_roll()
 
-        type_wr(f"You get a \033[93;1m{die_roll_result}\033[0m!")
+        type_wr(f"\nRolling............................")
+        type_wr(f"\nYou get a \033[93;1m{die_roll_result}\033[0m!")
 
         updated_pos = initial_pos + die_roll_result
-        old_counter = self.counter[player_i]
-        new_counter = old_counter + 1
-        self.counter[player_i] = new_counter
 
         gameRPS = RockPaperScissor()
-        gameRPS.counter(self.counter[player_i])
+        gameRPS.COUNTER(self.counter[player_i])
+        gameRPS.counter(self.counterRSP[player_i])
         gameRPS.user_card_q_algorithm()
 
         if updated_pos >= self.FINAL_TILE: # winner! game over
@@ -283,7 +292,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
                     type_wr(f"\n\n\033[96;1;4mPlayer {player_i + 1}\033[0m landed on \033[97;1;4mtile {updated_pos}\033[0m. ")
 
         elif updated_pos in self.LADDERS_tiles:
-            type_wr(f"\n\n\033[96;1;4mPlayer {player_i + 1}\033[0m encounters an \033[32;1mladder guardian\033[0m....")
+            type_wr(f"\n\n\033[96;1;4mPlayer {player_i + 1}\033[0m encounters a \033[32;1mladder guardian\033[0m....")
             type_wr("\n\nEnter '\033[94;1my\033[0m' to fight for the access on the ladder or '\033[34;1mn\033[0m'/any key to disregard: ")
             user_input = input()
             if user_input.upper() == "Y":
@@ -317,7 +326,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
             self.move_players()
             if self.verbose:
                 self.print_turn()
-        return f"\n\nCongratulations Player #{self.winner + 1} you Win! And that concludes this epic Snake and Ladder match."
+        return f"\n\n\033[93;1m=====Congratulations Player #{self.winner + 1} you Win! And that concludes this epic Snake and Ladder match.=====\033[93;1m"
        
     
     def print_turn(self):
@@ -354,8 +363,8 @@ class GAMEholder:
             \033[32;1m6. In a match the player and the ladder guardian or snake will engage in a 3 rounds rock, paper, and scissor game.\033[0m
             \033[32;1m7. Each turn a placement board will be shown to indicate the players position in the race.\033[0m
         """
-        #type_wr(intro_msg)
-        print(intro_msg)
+        type_wr(intro_msg)
+
         
 
     def options(self):
@@ -396,7 +405,7 @@ class GAMEholder:
                 num_players = self.player_amount()
                 gameSNL = SnakesAndLadders(num_players, verbose=True)
                 print(gameSNL.play_game())
-                type_wr(f"\n\n\n\n\n    Enter 0 in the options to play another session of Snake and Ladder.\n\n\n")
+                type_wr(f"\n\n\n\n\n---- Enter \033[93;1;4m'0'\033[0m in the options to play another session of Snake and Ladder.Thank You For Playing! ----\n\n\n")
             else:
                 condition = False
             
