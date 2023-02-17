@@ -238,7 +238,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
     
 
     def die_roller(self):
-        type_wr("Press Enter to role dice: ")
+        type_wr("Press Enter to role the dice: ")
         Continue_ = input()
         return randint(1,6)
     
