@@ -257,6 +257,7 @@ class SnakesAndLadders: #handles the algorithm for the Snakes and ladder game#
         die_roll_result = self.die_roller()
 
         type_wr(f"\nRolling............................")
+        time.sleep(0.8)
         type_wr(f"\nYou get a \033[93;1m{die_roll_result}\033[0m!")
 
         updated_pos = initial_pos + die_roll_result
